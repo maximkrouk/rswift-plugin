@@ -1,4 +1,4 @@
-# R.swift.Plugin
+# rswift-plugin
 
 Use R.swift for resources in your own Swift package.
 
