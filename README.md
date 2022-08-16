@@ -7,36 +7,52 @@ Use R.swift for resources in your own Swift package.
 1. This is a plugin for Swift Package Manager, which supports plugins since Swift 5.6,
 therefore the proper swift tools needs to be used
 
-    `// swift-tools-version:5.6`
+`// swift-tools-version:5.6`
 
 2. You need two dependencies, `R.swift.Library` as usual, but also `R.swift.Plugin`
 
-    ```
-    dependencies: [
-        .package(url: "https://github.com/mac-cain13/R.swift.Library", from: "5.4.0"),
-        .package(url: "https://github.com/quentinfasquel/R.swift.Plugin", from: "5.4.0")
-    ],
-    ```
+```
+dependencies: [
+  .package(
+    url: "https://github.com/mac-cain13/R.swift.Library.git",
+    from: "5.4.0"
+  ),
+  .package(
+    url: "https://github.com/maximkrouk/rswift-plugin.git", 
+    from: "0.0.1"
+  )
+],
+```
     
 3. Your target needs to link with `R.swift.Library` and use the plugin
 
-    ```
-    targets: [
-        .target(
-            name: "YourTarget",
-            dependencies: [.product(name: "RswiftDynamic", package: "R.swift.Library")],
-            resources: [
-                .copy("someImage.png") // Resource example
-            ],
-            plugins: [.plugin(name: "RswiftPlugin", package: "R.swift.Plugin")]
-        ),
-    ```
+```
+targets: [
+  .target(
+    name: "YourTarget",
+    dependencies: [
+      .product(
+        name: "Rswift",
+        package: "R.swift.Library"
+      )
+    ],
+    resources: [
+      .process("Resources")
+    ],
+    plugins: [
+      .plugin(
+        name: "rswift-plugin", package: "rswift-plugin")]
+      )
+    ]
+  )
+]
+```
 
 4. Use R.swift like before :
 
-    ```
-    let image = R.image.someImage()
-    ```
+  ```
+let image = R.image.someImage()
+```
 
 --
 
